@@ -10,18 +10,17 @@ object HelloScala extends App {
       case x if x % 2 == 0  => "even"
       case _ => "odd"
   }
-
+  println("PARITY")
   println(parity1(5));
   println(parity1(2));
 
   println(parity2(5));
   println(parity2(2));
 
+
+
   val empty: String =>Boolean = _ == ""
   def empty1(s:String):Boolean = s == ""
-
-//  println(empty("ciccia"))
-//  println(empty(""))
 
   val neg: (String =>Boolean) => (String => Boolean) = p => !p(_)
 
@@ -30,6 +29,8 @@ object HelloScala extends App {
 
   val notEmpty: String => Boolean = neg(empty);
 
+
+  println("2b")
   println(notEmpty("foo"))// true
   println(notEmpty("")) //false
 
@@ -45,21 +46,29 @@ object HelloScala extends App {
   def p3(x: Int)(y: Int)(z: Int): Boolean = min(x, y) && min(y, z)
   def p4(x:Int, y: Int, z: Int): Boolean =  min(x, y) && min(y, z)
 
-  println(p1(1)(2))
-  println(p1(3))
-  println(p2(4,5,6))
-  println(p4(4,5,6))
-  println(p2(5,5,6))
-  println(p4(6,5,6))
+  println("CURRYING")
+  println(p1(1)(2)(3))  //true
+  println(p1(1)(5)(3))  //false
+
+  println(p2(4,5,6))  //true
+  println(p2(6,5,6))  //false
+
+  println(p3(1)(2)(3))  //true
+  println(p3(3)(2)(1))  //false
+
+  println(p4(4,5,6))    //true
+  println(p4(6,5,6))    //false
 
 
 
 
-  
+
   //composition
   def compose(f: Int=>Int, g: Int=>Int):Int => Int  = { x => f(g(x)) }
 
   def genericCompose[A, B, C](f: B => C,g: A => B):A => C ={ x => f(g(x)) }
+
+  println("COMPOSITION")
   println(compose(_-1,_*2)(5))
 
   //ho problemi con la generic qui sotto
@@ -83,7 +92,7 @@ object HelloScala extends App {
     }
     _fib(n, 0, 1)
   }
-
+  println("FIBONACCI")
   println(fib(0),fib(1),fib(2),fib(3),fib(4))
   println(fib2(0),fib2(1),fib2(2),fib2(3),fib2(4))
 }
