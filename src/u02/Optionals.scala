@@ -1,5 +1,7 @@
 package u02
 
+import javax.swing.plaf.OptionPaneUI
+
 object Optionals extends App {
 
   sealed trait Option[A] // An Optional data type
@@ -21,6 +23,32 @@ object Optionals extends App {
       case Some(a) => f(a)
       case _ => None()
     }
+
+
+    //LUCA ROSSI  ||
+    //            \/
+
+    def filter[A](opt: Option[A])(f:A => Boolean): Option[A] = opt match {
+      case Some(a) if f(a) => Some(a)
+      case _ => None()
+    }
+
+    def map[A, B] (opt: Option[A])(f:A => B): Option[B] = opt match {
+      case Some(a) => Some(f(a))
+      case _ => None()
+    }
+
+    def map2[A] (opt: Option[A])(opt2: Option[A])(f:(A, A) => A): Option[A] = opt match {
+      case Some(a) => opt2 match {
+        case Some(b) => Some(f(a, b))
+        case _ => None()
+      }
+      case _ => None()
+    }
+
+
+    //LUCA ROSSI  /\
+    //            ||
   }
 
   import Option._
@@ -33,4 +61,18 @@ object Optionals extends App {
   println(flatMap(s1)(i => Some(i+1))) // Some(2)
   println(flatMap(s1)(i => flatMap(s2)(j => Some(i+j)))) // Some(3)
   println(flatMap(s1)(i => flatMap(s3)(j => Some(i+j)))) // None
+
+
+  //LUCA ROSSI
+
+  println(filter(Some(5))(_ > 2)) // Some(5)
+  println(filter(Some(5))(_ > 8)) // None
+
+  println(map(Some(5))(_ > 2))// Some(true))
+  println(map(None[Int])(_ > 2)) //None
+
+
+  println(map2(Some(5))(Some(2))((a,b) => a*b))
+  println(map2(Some(5))(None())((a,b) => a*b))
+  println(map2(None[Int])(Some(5))((a,b) => a*b))
 }
