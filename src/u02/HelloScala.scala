@@ -54,14 +54,16 @@ object HelloScala extends App {
 
 
 
+
+  
   //composition
   def compose(f: Int=>Int, g: Int=>Int):Int => Int  = { x => f(g(x)) }
 
   def genericCompose[A, B, C](f: B => C,g: A => B):A => C ={ x => f(g(x)) }
   println(compose(_-1,_*2)(5))
-  
-  println(genericCompose(_-1,_*2)(5))
 
+  //ho problemi con la generic qui sotto
+  //println(genericCompose(_-1,_*2)(5))
 
 
 
